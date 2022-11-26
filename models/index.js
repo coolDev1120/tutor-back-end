@@ -18,7 +18,6 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 
 db.tutor = require("./tutor.js")(sequelize, Sequelize);
 db.user = require("./user1.js")(sequelize, Sequelize);

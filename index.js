@@ -8,7 +8,7 @@ const router = require('./router');
 
 const cors = require('cors');
 const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 // get config vars
 dotenv.config();
@@ -23,7 +23,7 @@ app.use('/public', express.static('public'));
 // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json())
 app.use(router);
-mongoose.connect('mongodb://localhost:auth/auth');
+// mongoose.connect('mongodb://localhost:auth/auth');
 
 app.listen(3090);
 console.log('Server listening on:', 3090);

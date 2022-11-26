@@ -1,12 +1,8 @@
 
-const passport = require('passport');
-const requireAuth = passport.authenticate('jwt', { session: false });
-const requireSignin = passport.authenticate('local', { session: false });
 const router = require('express').Router();
 const Tutor = require('./controllers/become');
 const Setting = require('./controllers/setting');
 const Authentication = require('./controllers/authentication');
-const passportService = require('./services/passport');
 
 const multer = require('multer')
 const path = require('path')
@@ -25,17 +21,9 @@ var upload = multer({ storage: storage })
 
 
 
-router.get('/protected_content', requireAuth, function (req, res) {
-    res.send({ message: 'server response:  this GET request has been authorized for a user' });
-});
 
-router.get('/admin_area', requireAuth, function (req, res, next) {
-    res.send({ message: 'server response:  this GET request has been authorized for an admin' });
-});
-
-router.post('/signin', requireSignin, Authentication.signin);
+router.post('/signin', Authentication.signin);
 router.post('/signup', Authentication.signup);
-router.post('/admin_activation', Authentication.admin_activation);
 
 router.post('/become/about', Tutor.about);
 router.post('/become/getdata', Tutor.getdata);
