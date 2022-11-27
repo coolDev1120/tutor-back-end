@@ -2,6 +2,7 @@ const { JSON } = require("sequelize");
 const db = require("../models");
 const Tutor_contact = db.tutor_contact;
 const User1 = db.user;
+const Message = db.message
 
 exports.uploadPorfileImg = async function (req, res, next) {
 	// const history = await Tutor.findOne({ where: { email: req.body.email } });
@@ -104,7 +105,16 @@ exports.getTutorById = async function (req, res, next) {
 		});
 }
 
-
+exports.saveMessage = async function (req, res, next) {
+	console.log(req.body)
+	var message = {
+		email: req.body.email,
+		email: req.body.emailTo,
+		email: req.body.message,
+	}
+	Message.create(message)
+	res.send({ flag: "success" })
+}
 
 
 

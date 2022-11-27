@@ -51,5 +51,6 @@ router.post('/setting/getMySchedule', Setting.getMySchedule);
 router.post('/setting/deleteMySchedule', Setting.deleteMySchedule);
 
 router.post('/getTutorById', Setting.getTutorById);
+router.post('/saveMessage', Setting.saveMessage);
 
 module.exports = router;

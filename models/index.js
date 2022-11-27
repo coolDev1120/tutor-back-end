@@ -22,6 +22,7 @@ db.sequelize = sequelize;
 db.tutor = require("./tutor.js")(sequelize, Sequelize);
 db.user = require("./user1.js")(sequelize, Sequelize);
 db.tutor_contact = require("./tutor_contact.js")(sequelize, Sequelize);
+db.message = require("./message.js")(sequelize, Sequelize);
 
 module.exports = sequelize;
 module.exports = db;
