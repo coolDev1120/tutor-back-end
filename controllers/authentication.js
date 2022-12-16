@@ -21,6 +21,12 @@ function tokenForUser(user) {
 }
 
 exports.signin = async function (req, res, next) {
+	const usercheck = await User1.findOne({ where: { email: req.body.email } });
+	if (!usercheck) {
+		res.send({ flag: "nouser", error: "Your email is not registered" });
+		return
+	}
+
 	const result = await User1.findOne({
 		where: {
 			[Op.and]: [
@@ -30,7 +36,8 @@ exports.signin = async function (req, res, next) {
 		}
 	});
 	if (!result) {
-		res.send({ flag: "nouser", error: "123213" });
+		res.send({ flag: "nomatch", error: "Email or username is incorect" });
+		return
 	}
 	else {
 		res.send({ flag: "success", token: tokenForUser(result) });

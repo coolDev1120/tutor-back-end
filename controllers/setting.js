@@ -1,5 +1,6 @@
 const { JSON } = require("sequelize");
 const db = require("../models");
+const md5 = require('md5');
 const Tutor_contact = db.tutor_contact;
 const User1 = db.user;
 const Message = db.message
@@ -22,7 +23,6 @@ exports.saveAccount = async function (req, res, next) {
 		gender: req.body.gender,
 		image: req.body.image
 	}
-	console.log(update)
 	const result = await User1.findOne({ where: { email: req.body.email } });
 	result.update(update);
 	res.send({ flag: "success" })
@@ -36,6 +36,15 @@ exports.changeAccount = async function (req, res, next) {
 		image: req.body.image
 	}
 	console.log(update)
+	const result = await User1.findOne({ where: { email: req.body.email } });
+	result.update(update);
+	res.send({ flag: "success" })
+}
+
+exports.changePassword = async function (req, res, next) {
+	var update = {
+		password: md5(req.body.password),
+	}
 	const result = await User1.findOne({ where: { email: req.body.email } });
 	result.update(update);
 	res.send({ flag: "success" })
@@ -92,6 +101,14 @@ exports.deleteMySchedule = async function (req, res, next) {
 }
 
 exports.getTutorById = async function (req, res, next) {
+	const check = await db.sequelize.query(`select * from messages where (email = "${req.body.email}" and emailTo = "${req.body.me}") or (email = "${req.body.me}" AND emailTo = "${req.body.email}")`,
+		{ type: db.Sequelize.QueryTypes.SELECT })
+
+	if (check.length > 0) {
+		res.send({ flag: "use" })
+		return
+	}
+
 	await db.sequelize.query(`select * from users a, tutors b where a.email = b.email and b.tutor_id = '${req.body.id}' `, { type: db.Sequelize.QueryTypes.SELECT })
 		.then((result) => {
 			if (!result) {
@@ -105,16 +122,7 @@ exports.getTutorById = async function (req, res, next) {
 		});
 }
 
-exports.saveMessage = async function (req, res, next) {
-	console.log(req.body)
-	var message = {
-		email: req.body.email,
-		email: req.body.emailTo,
-		email: req.body.message,
-	}
-	Message.create(message)
-	res.send({ flag: "success" })
-}
+
 
 
 

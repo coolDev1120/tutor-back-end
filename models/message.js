@@ -14,6 +14,15 @@ module.exports = (sequelize, Sequelize) => {
     message: {
       type: Sequelize.STRING,
     },
+    unread:{
+      type: Sequelize.INTEGER,
+    },
+    user: {
+      type: Sequelize.STRING,
+    },
+    userTo: {
+      type: Sequelize.STRING,
+    },
   });
 
   return Message;

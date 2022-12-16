@@ -3,6 +3,7 @@ const router = require('express').Router();
 const Tutor = require('./controllers/become');
 const Setting = require('./controllers/setting');
 const Authentication = require('./controllers/authentication');
+const Chat = require('./controllers/chat')
 
 const multer = require('multer')
 const path = require('path')
@@ -42,6 +43,7 @@ router.post('/uploadimage', upload.single('photo'), Setting.uploadPorfileImg)
 router.post('/setting/getAccount', Setting.getAccount);
 router.post('/setting/saveAccount', Setting.saveAccount);
 router.post('/setting/changeAccount', Setting.changeAccount);
+router.post('/setting/changePassword', Setting.changePassword);
 
 // Schedule
 router.post('/setting/saveSchedule', Setting.saveSchedule);
@@ -51,6 +53,12 @@ router.post('/setting/getMySchedule', Setting.getMySchedule);
 router.post('/setting/deleteMySchedule', Setting.deleteMySchedule);
 
 router.post('/getTutorById', Setting.getTutorById);
-router.post('/saveMessage', Setting.saveMessage);
+
+// Chat 
+router.post('/saveMessage', Chat.saveMessage);
+router.post('/getmessage', Chat.getMessages);
+router.post('/getchatlist', Chat.getChatList);
+router.post('/readallmessages', Chat.readallmessages);
+
 
 module.exports = router;
